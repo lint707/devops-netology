@@ -1,3 +1,4 @@
+Hello 25.02.2022
 Test text
 Second test
 Third test
@@ -21,3 +22,4 @@ override.tf.json
 файлы конфигурации CLI
 .terraformrc
 terraform.rc
+
