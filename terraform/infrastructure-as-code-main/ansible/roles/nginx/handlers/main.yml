@@ -1,0 +1,11 @@
+---
+# handlers file for nginx
+#- name: "restart nginx"
+#  service:
+#    name: "nginx"
+#    state: "restarted"
+#  become: true
+
+- name: "restart nginx"
+  script: scripts/nginx_check_reload.sh
+  become: true

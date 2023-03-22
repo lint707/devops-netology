@@ -1,0 +1,19 @@
+---
+- name: debian | installing nginx
+  apt:
+    name: "nginx"
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Проверяем, dhparam.pem
+  stat:
+  become: true
+  args:
+    path: /etc/nginx/dhparam.pem
+  register: dhparam_check
+
+- name: 'nginx | create dhparam'
+  command: 'openssl dhparam -out /etc/nginx/dhparam.pem 2048'
+  register: nginx_config_copied
+  when: dhparam_check.stat.exists == False

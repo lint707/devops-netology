@@ -1,0 +1,57 @@
+- block:
+    - name: Add vts-exporter dns srv records Yandex Cloud
+      script: scripts/ipa_dns_record_add.py
+      environment:
+        IPA_ENDPOINT: "{{ _ipa_host }}"
+        IPA_USER: "{{ _ipa_user.user_input | default(lookup('env','IPA_USER')) }}"
+        IPA_PASS: "{{ _ipa_pass.user_input | default(lookup('env','IPA_PASS')) }}"
+        DNS_ZONE_NAME: "{{os_project_name}}.{{domain}}"
+        DNS_RECORD_NAME: "vts-exporter"
+        DNS_SRV_RECORD: "1 1 443 {{inventory_hostname_short}}"
+      delegate_to: 127.0.0.1
+      become: false
+      when: dc_id is defined and dc_id==2
+      ignore_errors: true
+    - name: Add vts-exporter dns srv records for Crock Openstack
+      script: scripts/ipa_dns_record_add.py
+      environment:
+        IPA_ENDPOINT: "{{ _ipa_host }}"
+        IPA_USER: "{{ _ipa_user.user_input | default(lookup('env','IPA_USER')) }}"
+        IPA_PASS: "{{ _ipa_pass.user_input | default(lookup('env','IPA_PASS')) }}"
+        DNS_ZONE_NAME: "{{os_project_name}}.{{monitoring_discovery_domain | default ('b-pl.cloud')}}"
+        DNS_RECORD_NAME: "vts-exporter"
+        DNS_SRV_RECORD: "1 1 443 {{inventory_hostname_short}}"
+      delegate_to: 127.0.0.1
+      become: false
+      when: dc_id is defined and dc_id==1
+      ignore_errors: true
+
+  when: custom_nginx is defined and custom_nginx |default('false')|bool
+
+# add dns record for blackbox exporter
+- name: Add blackbox-exporter dns srv records Yandex Cloud
+  script: scripts/ipa_dns_record_add.py
+  environment:
+    IPA_ENDPOINT: "{{ _ipa_host }}"
+    IPA_USER: "{{ _ipa_user.user_input | default(lookup('env','IPA_USER')) }}"
+    IPA_PASS: "{{ _ipa_pass.user_input | default(lookup('env','IPA_PASS')) }}"
+    DNS_ZONE_NAME: "{{os_project_name}}.{{domain}}"
+    DNS_RECORD_NAME: "blackbox-exporter"
+    DNS_SRV_RECORD: "1 1 443 {{inventory_hostname_short}}"
+  delegate_to: 127.0.0.1
+  become: false
+  when: dc_id is defined and dc_id==2
+  ignore_errors: true
+- name: Add blackbox-exporter dns srv records for Crock Openstack
+  script: scripts/ipa_dns_record_add.py
+  environment:
+    IPA_ENDPOINT: "{{ _ipa_host }}"
+    IPA_USER: "{{ _ipa_user.user_input | default(lookup('env','IPA_USER')) }}"
+    IPA_PASS: "{{ _ipa_pass.user_input | default(lookup('env','IPA_PASS')) }}"
+    DNS_ZONE_NAME: "{{os_project_name}}.{{monitoring_discovery_domain | default ('b-pl.cloud')}}"
+    DNS_RECORD_NAME: "blackbox-exporter"
+    DNS_SRV_RECORD: "1 1 443 {{inventory_hostname_short}}"
+  delegate_to: 127.0.0.1
+  become: false
+  when: dc_id is defined and dc_id==1
+  ignore_errors: true

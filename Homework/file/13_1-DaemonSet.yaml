@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ds-multitool
+  labels:
+    app: multitool
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: multitool
+  updateStrategy:
+    type: OnDelete
+  template:
+    metadata:
+      labels:
+        app: multitool
+    spec:
+      containers:
+        - name: multitool
+          image: praqma/network-multitool:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: HTTP_PORT
+              value: "8080"
+          lifecycle:
+            postStart:
+              exec:
+                command: ["sleep", "10"]
+            preStop:
+              exec:
+                command: ["sleep", "30"]
+          volumeMounts:
+            - name: my-volume
+              mountPath: "/multitool"
+      volumes:
+        - name: my-volume
+          hostPath:
+            path: /var/log

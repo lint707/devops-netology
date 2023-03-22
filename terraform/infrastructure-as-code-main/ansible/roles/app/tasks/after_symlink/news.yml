@@ -1,0 +1,35 @@
+- name: "APP: place systemd unit files"
+  template:
+    src: 'config/{{env}}/{{ service }}/systemd/{{item}}.j2'
+    dest: '/etc/systemd/system/{{service}}-{{item}}'
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    mode: "0664"
+  with_items: '{{app_services_to_copy}}'
+  tags:
+    - config
+    - rollback
+
+- name: "APP: restarted services"
+  systemd:
+    name: '{{service}}-{{item}}'
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  with_items: '{{app_services_to_start}}'
+  when: systemd | bool
+  tags:
+    - config
+    - rollback
+
+#- name: "APP: Check app is running and worked"
+#  uri:
+#    url: "{{healtz_url}}"
+#    status_code: 200
+#  register: result
+#  until: result.status == 200
+#  retries: 60
+#  delay: 1
+#  tags:
+#    - config
+#    - rollback

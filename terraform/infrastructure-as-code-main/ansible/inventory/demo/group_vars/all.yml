@@ -1,0 +1,15 @@
+env: demo
+yc_project_name: "{{ lookup('env','ENV') }}"
+ansible_user: centos
+log_root: "/var/log/{{ service }}"
+custom_nginx: true
+env_asserts:
+  - APP_VERSION
+  - SERVICE
+  - CI_PROJECT_ID
+
+users:
+  # Sergey Andryunin
+  - username: sergey.andryunin
+    state: present
+    key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC6H4lEXMWhEaUXl0hq7h3oIlBSQMcmllMSyS7Hb4NKPk9vHL+yr/z3yaqHXi5RzI3PUTg4b7fBaveJx57CKN0NxI+ws+4do8SUf1T0TsxDNIwp1AqaepS0srvAIEbX8Ofgj6AGavfbSaJAJmfUswgRB3BieYyqMZkLzQUKDTw/xYjRzoGTPK94L+AkO+Bh0rY5goAtK9RpoJGergBHojDIr9KeIuwBmApMeWuoWf2v2CbP0O5+FF7QmzbF/haMm/KeXgvc1mUL2mX+AAUPfvPL9uc+5dujvsZwC+uJqEgnMmemxO9vAP2FgvmswsB8ybITC+fv79KeZ/ZsZ1o3+x16apKE3rY0+vgynf/IK4iraoZre3FB84cOUQM9xjVO3m7md/os/oexLbYq+HZRcnDm8CIe+N8GbXhn4KldCo6m2k8wYS+FPeOxudi0mg5PM3O1FuCFUIN6MsggRjZV3QeuQui2TpqMk94KpIsfXwDhzrH7ldKvjudfzcax9lwjl/8= s.andryunin@fedora-work

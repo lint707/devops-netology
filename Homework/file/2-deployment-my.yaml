@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-nfs
+  labels:
+    app: multitool
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multitool
+  template:
+    metadata:
+      labels:
+        app: multitool
+    spec:
+      containers:
+        - name: multitool
+          image: praqma/network-multitool:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: HTTP_PORT
+              value: "8080"
+          lifecycle:
+            postStart:
+              exec:
+                command: ["sleep", "10"]
+            preStop:
+              exec:
+                command: ["sleep", "30"]
+          volumeMounts:
+            - name: my-vol
+              mountPath: "/storage"
+      volumes:
+        - name: my-vol
+          persistentVolumeClaim:
+            claimName: pvc-nfs
+

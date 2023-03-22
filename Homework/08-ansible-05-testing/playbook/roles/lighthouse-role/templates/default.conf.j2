@@ -1,0 +1,14 @@
+server {
+    listen	80;
+    server_name localhost;
+    
+    access_log /var/log/ngnx{{ lh_acc_log_name }}.log main;
+    
+    location / {
+    	root {{ lh_loc_dir }};
+    	index index.html;
+    }
+    location /gui/ {
+    	rewrite ^ /#{{ cl_url }}/?user={{ cl_user }} permanent;
+    }
+}

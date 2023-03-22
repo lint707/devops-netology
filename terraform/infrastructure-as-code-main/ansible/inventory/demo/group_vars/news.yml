@@ -1,0 +1,26 @@
+app_user: newsapp
+app_group: newsapp
+keep_releases: 3
+service: "{{ lookup('env','SERVICE') }}"
+app_version: "{{ lookup('env','APP_VERSION') }}"
+app_startup_command: "news-demo"
+app_root: "/opt/{{ service }}"
+app_path: "{{app_root}}/releases/{{app_version}}"
+app_url: "https://gitlab.com/api/v4/projects/{{ lookup('env','CI_PROJECT_ID') }}/packages/generic/news-app-demo/{{ app_version }}"
+artifacts_name:
+  - "news-app-demo.tar.gz"
+artifact_name: "news-app-demo.tar.gz"
+private_gitlab_token: "{{ lookup('env','CI_JOB_TOKEN') }}"
+
+systemd: true
+app_services_to_copy:
+  - app.service
+app_services_to_start:
+  - app.service
+
+shared_paths:
+  - { path: "{{ app_root }}/current", src: "{{ app_root }}/releases/{{app_version}}" }
+
+news_app_bind_addr: 127.0.0.1:8080
+news_app_news_lang: ru
+news_app_api_key: a0bd1250692648c79515de6be5f41dcc

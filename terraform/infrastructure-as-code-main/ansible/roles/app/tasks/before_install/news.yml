@@ -1,0 +1,29 @@
+---
+- name: "APP: create app user"
+  user:
+    name: '{{app_user}}'
+    system: yes
+    shell: /usr/sbin/nologin
+    home: '/home/{{app_user}}'
+    force: yes
+
+- name: "App: create app dirs"
+  file:
+    dest: '{{item}}'
+    state: directory
+    owner: '{{app_user}}'
+    group: '{{app_group}}'
+    mode: 0744
+  with_items:
+    - '{{app_root}}'
+    - '{{log_root}}'
+
+- name: "App: create log dirs"
+  file:
+    dest: '{{item}}'
+    state: directory
+    owner: '{{app_user}}'
+    group: '{{app_group}}'
+    mode: 0755
+  with_items:
+    - '{{log_root}}'

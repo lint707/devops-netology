@@ -1,0 +1,30 @@
+---
+# tasks file for nginx
+- include: set_facts.yml
+
+- include_tasks: custom_nginx.yml
+  when: custom_nginx is defined and custom_nginx |default('false')|bool
+
+- include_tasks: nginx-official-repo.yml
+  when: custom_nginx is not defined or not custom_nginx
+
+- include: debian.yml
+  when: ansible_os_family == "Debian" and (custom_nginx is not defined or not custom_nginx)
+
+- include: redhat.yml
+  when: ansible_os_family == "RedHat" and (custom_nginx is not defined or not custom_nginx)
+
+- name: remove default sites-enabled configuration
+  file: path=/etc/nginx/sites-enabled/default.conf state=absent
+
+- name: remove default conf.d configuration
+  file: path=/etc/nginx/conf.d/default.conf state=absent
+
+- name: remove default sla.conf configuration
+  file: path=/etc/nginx/conf.d/sla.conf state=absent
+
+- include: config_nginx.yml
+  when: config_nginx
+
+#- include: config_dns_discovery.yml
+#  when: custom_nginx is defined and custom_nginx |default('false')|bool

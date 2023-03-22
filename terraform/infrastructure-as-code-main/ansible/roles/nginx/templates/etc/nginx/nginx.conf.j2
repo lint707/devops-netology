@@ -1,0 +1,46 @@
+# {{ansible_managed}}
+user {{ nginx_web_owner }};
+worker_processes {{ nginx_worker_processes }};
+worker_rlimit_nofile 65535;
+pid /run/nginx.pid;
+
+events {
+{% for item in nginx_events_block %}
+  {{ item }};
+{% endfor %}
+}
+
+http {
+
+{% if custom_nginx is defined and (custom_nginx == 'true' or custom_nginx == true) %}
+  security_headers on;
+  hide_server_tokens on;
+  vhost_traffic_status on;
+  vhost_traffic_status_zone shared:vhost_traffic_status:64m;
+  vhost_traffic_status_filter on;
+  vhost_traffic_status_filter_by_host on;
+  vhost_traffic_status_filter_by_set_key $uri uris::$server_name;
+  vhost_traffic_status_dump /var/log/nginx/vts/vts.db;
+  vhost_traffic_status_histogram_buckets 0.05 0.1 0.5 1 5 10;
+{% endif %}
+
+{% for item in nginx_http_block.basic_settings %}
+  {{ item }};
+{% endfor %}
+
+{% for item in nginx_http_block.logging_settings %}
+  {{ item }};
+{% endfor %}
+
+{% for item in nginx_http_block.gzip_settings %}
+  {{ item }};
+{% endfor %}
+
+{% for item in nginx_http_block.ssl_settings %}
+  {{ item }};
+{% endfor %}
+
+{% for item in nginx_http_block.vhost_configs %}
+  {{ item }};
+{% endfor %}
+}

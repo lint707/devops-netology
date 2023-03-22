@@ -1,0 +1,17 @@
+---
+- name: Install Nginx
+  hosts: nginx
+  roles: 
+    - nginx-role
+- name: Install Light
+  hosts: lighthouse
+  roles: 
+    - lighthouse-role
+- name: Install Clickhouse
+  hosts: clickhouse
+  roles: 
+    - clickhouse-role
+- name: Install Vector
+  hosts: vector
+  roles: 
+    - vector-role

@@ -1,0 +1,81 @@
+---
+- name: "APP: Check ENV variables is defined"
+  fail:
+    msg: "Env variable is not defined: {{item}}"
+  when: not lookup('env', item)
+  with_items: "{{ env_asserts }}"
+  tags:
+    - always
+
+- block:
+  - include_tasks: "before_install/{{service}}.yml"
+    tags:
+      - always
+
+  - name: "APP: Create build directory"
+    file:
+      path: "{{app_path}}"
+      state:  "directory"
+      owner: "{{app_user}}"
+      group: "{{app_group}}"
+      mode: "0775"
+    when: not ansible_check_mode
+
+  - name: "APP: Download App"
+    get_url:
+      url: '{{app_url}}/{{item}}'
+      dest: '{{app_path}}'
+      force: false
+      owner: '{{app_user}}'
+      group: '{{app_group}}'
+      mode: 0744
+    environment:
+      http_proxy: "{{ http_proxy | default('')}}"
+      https_proxy: "{{ https_proxy | default('')}}"
+    when: not ansible_check_mode and lookup('env','CI_JOB_ID')
+    with_items:
+      - '{{artifacts_name}}'
+
+  - name: "APP: Download App"
+    get_url:
+      url: '{{app_url}}/{{item}}'
+      dest: '{{app_path}}'
+      force: false
+      owner: '{{app_user}}'
+      group: '{{app_group}}'
+      mode: 0744
+    environment:
+      http_proxy: "{{ http_proxy | default('')}}"
+      https_proxy: "{{ https_proxy | default('')}}"
+    when: not ansible_check_mode and not lookup('env','CI_JOB_ID')
+    with_items:
+      - '{{artifacts_name}}'
+
+  - include_tasks: "before_symlink/{{service}}.yml"
+    tags:
+      - always
+
+  - name: "APP: Create softlinks for shared paths"
+    file:
+      state: link
+      path: "{{ item.path }}"
+      src: "{{ item.src }}"
+      force: yes
+      owner: '{{ app_user }}'
+      group: '{{ app_group }}'
+      mode: 0774
+    when: not ansible_check_mode
+    with_items: "{{ shared_paths }}"
+    tags:
+      - rollback
+
+  - include_tasks: "after_symlink/{{service}}.yml"
+    tags:
+      - always
+
+  - name: "APP: Clean up releases"
+    shell: ls -1dt {{ app_root }}/releases/* | tail -n +{{ keep_releases | int + 1 }} | xargs rm -rf
+    when: keep_releases | int > 0 and not ansible_check_mode
+
+  become: yes
+  become_user: root

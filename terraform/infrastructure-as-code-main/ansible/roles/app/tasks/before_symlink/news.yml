@@ -1,0 +1,20 @@
+---
+- name: "APP: Unarchive App...."
+  unarchive:
+    remote_src: yes
+    src: "{{app_path}}/{{artifact_name}}"
+    dest: '{{ app_path }}'
+    group: '{{ app_group }}'
+    owner: '{{ app_user }}'
+  when: not ansible_check_mode
+
+- name: "APP: Change file ownership, group and permissions"
+  file:
+    path: '{{ app_root }}/releases/{{app_version}}'
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    recurse: yes
+    modification_time: now
+    access_time: now
+  tags:
+    - config

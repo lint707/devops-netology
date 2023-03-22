@@ -1,0 +1,8 @@
+---
+lh_acc_log_name: lighthouse_access
+ls_url: http://localhost
+cl_url: http://localhost:8123
+cl_user: user
+ls_loc_install: false
+nginx_user_name: user
+

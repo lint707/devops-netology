@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-cm
+  namespace: default
+data:
+  index.html:
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>Nginx test!</title>
+    </head>
+    <body>
+    <h1>Test nginx!</h1>
+    </body>
+    </html>

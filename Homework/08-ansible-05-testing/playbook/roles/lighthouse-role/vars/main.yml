@@ -1,0 +1,5 @@
+---
+# vars file for lighthouse-role
+lh_loc_dir: /home/user/appserv/lighthouse
+lh_vcs: https://github.com/VKCOM/lighthouse.git
+

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: multitool-cm
+  namespace: default
+data:
+  value: "8080"

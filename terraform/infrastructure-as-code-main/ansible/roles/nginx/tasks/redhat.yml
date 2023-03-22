@@ -1,0 +1,30 @@
+---
+- name: redhat | installing nginx
+  yum:
+    name: "nginx"
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Проверяем, dhparam.pem
+  stat:
+  become: true
+  args:
+    path: /etc/nginx/dhparam.pem
+  register: dhparam_check
+
+- name: 'nginx | create dhparam'
+  command: 'openssl dhparam -out /etc/nginx/dhparam.pem 2048'
+  register: nginx_config_copied
+  when: dhparam_check.stat.exists == False
+
+#- name: redhat | ensuring nginx is started and enabled on boot
+#  service:
+#    name: "nginx"
+#    state: started
+#    enabled: yes
+#  become: true
+
+- name: Selinux enbale network_conn
+  become: true
+  shell: setsebool -P httpd_can_network_connect 1

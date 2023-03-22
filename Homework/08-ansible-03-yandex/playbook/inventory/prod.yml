@@ -1,0 +1,18 @@
+---
+all:
+  children:
+    clickhouse:
+      hosts:
+        centos7:
+          ansible_connection: ssh
+          ansible_host: 84.201.157.123
+    vector:
+      hosts:
+        centos7:
+          ansible_connection: ssh
+          ansible_host: 178.154.223.135
+    lighthouse:
+      hosts:
+        centos7:
+          ansible_connection: ssh
+          ansible_host: 178.154.223.254

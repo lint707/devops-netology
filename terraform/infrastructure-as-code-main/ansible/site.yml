@@ -1,0 +1,32 @@
+---
+- hosts: localhost
+  become: false
+  tasks:
+    - name: get instances in yandex cloud
+      shell: yc compute instance list --format=yaml --folder-name={{yc_project_name}}
+      register: yc_instances
+
+    - set_fact:
+        _yc_instances: '{{yc_instances.stdout | from_yaml }}'
+
+#    - debug:
+#        msg: "{{item['network_interfaces'][0]['primary_v4_address']['one_to_one_nat']['address']}}"
+#      with_list: '{{_yc_instances}}'
+#      debugger: on_failed
+
+    - name: Add host to multiple groups
+      add_host:
+        hostname: "{{item['network_interfaces'][0]['primary_v4_address']['one_to_one_nat']['address']}}"
+        groups:
+          - balancers
+          - news
+      with_list: '{{_yc_instances}}'
+
+- hosts: balancers
+  become: yes
+  roles:
+    - { role: nginx }
+
+- hosts: news
+  roles:
+    - { role: app }

@@ -1,0 +1,43 @@
+worker_processes  2;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    log_format json escape=json '{"created_at": "$time_iso8601", '
+                            '"app": "rsa_balancer", '
+                            '"remote_addr_ip": "$remote_addr", '
+                            '"remote_user": "$remote_user", '
+                            '"body_bytes_sent": "$body_bytes_sent", '
+                            '"request_time": "$request_time", '
+                            '"status": "$status", '
+                            '"request": "$request_uri", '
+                            '"request_method": "$request_method", '
+                            '"request_body": "$request_body", '
+                            '"http_referrer": "$http_referer", '
+                            '"http_user_agent": "$http_user_agent", '
+                            '"message": "$time_iso8601 $remote_addr $remote_user $body_bytes_sent $request_time $status $request $request_method $http_referer $request_body $http_user_agent" }';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;
+    }

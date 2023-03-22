@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-multi-busy
+  labels:
+    app: busybox
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: busybox
+  template:
+    metadata:
+      labels:
+        app: busybox
+    spec:
+      containers:
+        - name: busybox
+          image: busybox:latest
+          command: ['sh', '-c', 'while true; do echo Test text >> /tmp/cache/1.txt; sleep 5; done;']
+          volumeMounts:
+            - name: my-volume
+              mountPath: "/tmp/cache"
+        - name: multitool
+          image: praqma/network-multitool:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: HTTP_PORT
+              value: "8080"
+          lifecycle:
+            postStart:
+              exec:
+                command: ["sleep", "10"]
+            preStop:
+              exec:
+                command: ["sleep", "30"]
+          volumeMounts:
+            - name: my-volume
+              mountPath: "/multitool"
+      volumes:
+        - name: my-volume
+          emptyDir: {}

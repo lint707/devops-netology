@@ -1,0 +1,35 @@
+- block:
+  - name: copy custom Nginx rpm to host
+    copy:
+      src: '{{item}}'
+      dest: '/tmp'
+    with_items:
+      - files/rpm/nginx-1.21.6-1.el7.ngx.x86_64.rpm
+
+#  - name: install hiredes-devel packages to host
+#    package: name=hiredis-devel state=present
+
+#  - name: remove nginx from host
+#    package: name=nginx state=absent
+
+  - name: install nginx to host
+    package: name=/tmp/nginx-1.21.6-1.el7.ngx.x86_64.rpm state=present
+
+  - name: create vts derictories
+    file: dest=/var/log/nginx/vts/ state=directory owner=nginx group=nginx mode=1755
+
+- name: Проверяем, dhparam.pem
+  stat:
+  become: true
+  args:
+    path: /etc/nginx/dhparam.pem
+  register: dhparam_check
+
+- name: 'nginx | create dhparam'
+  command: 'openssl dhparam -out /etc/nginx/dhparam.pem 2048'
+  register: nginx_config_copied
+  when: dhparam_check.stat.exists == False
+
+- name: Selinux enbale network_conn
+  become: true
+  shell: setsebool -P httpd_can_network_connect 1

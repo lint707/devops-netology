@@ -1,0 +1,13 @@
+POST http://localhost:8080/resource/create
+Content-Type: application/json
+
+{
+  "resource_type" : "server",
+  "region": "MSK"
+}
+
+###
+GET http://localhost:8080/resource/detail?name=N8081TserverRMS
+Accept: application/json
+
+###

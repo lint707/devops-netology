@@ -1,0 +1,21 @@
+# {{ansible_managed}}
+[Unit]
+Description={{service}}
+After=syslog.target network.target
+
+[Service]
+Type=simple
+# Set Environment for APP
+
+Environment=NEWS_APP_BIND_ADDR={{news_app_bind_addr | default("127.0.0.1:8080")}}
+Environment=NEWS_APP_NEWS_LANG={{news_app_news_lang | default("ru")}}
+Environment=NEWS_APP_API_KEY={{news_app_api_key | default("lalalalalal")}}
+
+WorkingDirectory=/opt/{{service}}/current
+
+ExecStart=/opt/{{service}}/current/{{app_startup_command}}
+User={{app_user}}
+Group={{app_user}}
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,13 @@
+---
+clickhouse:
+  hosts:
+    centos7:
+      ansible_connection: ssh
+      ansible_host: 178.154.223.132
+
+      
+vector:
+  hosts:
+    centos7:
+      ansible_connection: ssh
+      ansible_host: 51.250.68.146

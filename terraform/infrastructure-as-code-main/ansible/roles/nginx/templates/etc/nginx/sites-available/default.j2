@@ -1,0 +1,8 @@
+# {{ansible_managed}}
+server {
+    listen      {{nginx_listen_port}};
+{% for item in nginx_default_sites_block %}
+    {{ item }}
+{% endfor %}
+
+}
