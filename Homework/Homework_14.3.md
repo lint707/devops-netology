@@ -10,7 +10,6 @@
 
 ![nwp0](img/nwp-0.jpg)
 ![nwp1](img/nwp-1.jpg)
-![nwp2](img/nwp-2.jpg)
 ![nwp3](img/nwp-3.jpg)
 
 
