@@ -12,5 +12,14 @@
 ![nwp1](img/nwp-1.jpg)
 ![nwp3](img/nwp-3.jpg)
 
+Deployment:
+[frontend](manifests/10-frontend.yaml)
+[backend](manifests/20-backend.yaml)
+[cache](manifests/30-cache.yaml)
+
+NetworkPolicy:
+[default](manifests/nwp-default.yaml)
+[backend](manifests/nwp-backend.yaml)
+[cache](manifests/nwp-cache.yaml)
 
 
