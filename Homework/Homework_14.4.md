@@ -15,7 +15,18 @@ maxUnavailable: 20%
 ### Задание 2. Обновить приложение.
 
 1. Создать deployment приложения с контейнерами nginx и multitool. Версию nginx взять 1.19. Кол-во реплик - 5.
+![str-1](img/strategy-01.jpg)
 2. Обновить версию nginx в приложении до версии 1.20, сократив время обновления до минимума. Приложение должно быть доступно.
+![str-2](img/strategy-02.jpg)
 3. Попытаться обновить nginx до версии 1.28, приложение должно оставаться доступным.
+![str-3](img/strategy-03.jpg)
 4. Откатиться после неудачного обновления.
+Выполнили:
+```
+kubectl rollout undo deployment deployment-ntl
+deployment.apps/deployment-ntl rolled back
+```
+![str-4](img/strategy-04.jpg)
+
+
 
