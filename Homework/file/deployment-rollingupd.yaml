@@ -1,0 +1,58 @@
+kubectl rollout undo deployment deployment-ntl
+deployment.apps/deployment-ntl rolled back
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-ntl
+  labels:
+    app: nginx
+  namespace: app
+spec:
+  replicas: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 40%
+      maxUnavailable: 40%
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.19.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+      - name: multitool
+        image: praqma/network-multitool:latest
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: HTTP_PORT
+            value: "8080"
+        lifecycle:
+          postStart:
+            exec:
+              command: ["sleep", "10"]
+          preStop:
+            exec:
+              command: ["sleep", "30"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc
+  namespace: app
+spec:
+  selector: 
+    app: nginx
+  ports:
+  - name: web      
+    port: 8080
+    protocol: TCP
