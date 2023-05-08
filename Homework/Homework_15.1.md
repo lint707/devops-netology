@@ -100,9 +100,9 @@ PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
 rtt min/avg/max/mdev = 18.320/18.679/19.559/0.510 ms
 ```
 
-[main.tf](file/main.tf)
-[variables.tf](file/variables.tf)
-[versions.tf](file/versions.tf)
-[vpc.tf](file/vpc.tf)
+[main.tf](file/main.tf)  
+[variables.tf](file/variables.tf)  
+[versions.tf](file/versions.tf)  
+[vpc.tf](file/vpc.tf)  
 
 ---
