@@ -27,7 +27,7 @@ variable "yc_folder_id" {
 provider "yandex" {
   token = var.yc_token
   cloud_id  = var.yc_cloud_id
-  folder_id = "b1g0qaa93f2na9813k1q"
+  folder_id = var.yc_folder_id
   zone      = var.yc_region
 }
 
@@ -37,7 +37,7 @@ resource "yandex_iam_service_account" "sa" {
 
 // Назначение роли сервисному аккаунту
 resource "yandex_resourcemanager_folder_iam_member" "sa-editor" {
-  folder_id = "b1g0qaa93f2na9813k1q"
+  folder_id = var.yc_folder_id
   role      = "storage.editor"
   member    = "serviceAccount:${yandex_iam_service_account.sa.id}"
 }
@@ -72,14 +72,14 @@ resource "yandex_iam_service_account" "igsa" {
 }
 
 resource "yandex_resourcemanager_folder_iam_member" "editor" {
-  folder_id = "b1g0qaa93f2na9813k1q"
+  folder_id = var.yc_folder_id
   role      = "editor"
   member   = "serviceAccount:${yandex_iam_service_account.igsa.id}"
 }
 
 resource "yandex_compute_instance_group" "ig-1" {
   name               = "fixed-ig-with-balancer"
-  folder_id          = "b1g0qaa93f2na9813k1q"
+  folder_id          = var.yc_folder_id
   service_account_id = "${yandex_iam_service_account.igsa.id}"
   instance_template {
     platform_id = "standard-v3"
@@ -160,5 +160,3 @@ resource "yandex_vpc_subnet" "subnet-1" {
   network_id     = yandex_vpc_network.network.id
   v4_cidr_blocks = ["192.168.10.0/24"] 
 }
-
-
