@@ -27,6 +27,7 @@
 
 Манифест:  
 [main.tf](file/main15-2.tf)  
+[user_data.sh](file/user_data.sh)
 
 bootstrap-скрипт:
 
