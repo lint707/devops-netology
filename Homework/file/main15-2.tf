@@ -102,7 +102,11 @@ resource "yandex_compute_instance_group" "ig-1" {
     }
 
     metadata = {
-      user_data = templatefile("${path.module}/user_data.sh", { image_url = "https://storage.yandexcloud.net/vasya-20-11-2000/elk.jpg" })
+      user-data = <<EOF
+#!/bin/bash
+sudo wget https://storage.yandexcloud.net/vasya-20-11-2000/elk.jpg -O /var/www/html/elk.jpg
+echo "<html><body><img src='elk.jpg'></body></html>" > /var/www/html/index.html
+EOF
     }
   }
 
