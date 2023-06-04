@@ -18,30 +18,82 @@ variable "yc_folder_id" {
 
 #-----
 
-resource "yandex_compute_image" "image" {
-  name       = "image"
-  source_family = "ubuntu-2004-lts"
-}
+resource "yandex_kubernetes_cluster" "kub-diploma" {
+  name        = "kub-diploma"
+  network_id = yandex_vpc_network.internal.id
+  master {
+    regional {
+      region = "ru-central1"
 
-resource "yandex_compute_instance" "ntvm" {
-  name = "ntvm"
-  zone = "ru-central1-a"
-  allow_stopping_for_update = true
+      location {
+        zone      = yandex_vpc_subnet.internal-a.zone
+        subnet_id = yandex_vpc_subnet.internal-a.id
+      }
 
-  resources {
-    cores = 2
-    memory = 2
-    core_fraction = 20
+      location {
+        zone      = yandex_vpc_subnet.internal-b.zone
+        subnet_id = yandex_vpc_subnet.internal-b.id
+      }
+
+      location {
+        zone      = yandex_vpc_subnet.internal-c.zone
+        subnet_id = yandex_vpc_subnet.internal-c.id
+      }
+    }
+    version   = "1.22"
+    public_ip = true
   }
+  release_channel = "RAPID"
+  node_service_account_id = yandex_iam_service_account.docker.id
+  service_account_id      = yandex_iam_service_account.instances.id
+}
+resource "yandex_kubernetes_node_group" "diploma-group-auto" {
+  cluster_id  = yandex_kubernetes_cluster.kub-diploma.id
+  name        = "diploma-group-auto"
+  version     = "1.22"
 
-  boot_disk {
-    initialize_params {
-      image_id = "${yandex_compute_image.image.id}"
+  instance_template {
+    platform_id = "standard-v2"
+    nat         = true
+
+    resources {
+      core_fraction = 20 
+      memory        = 2
+      cores         = 2
+    }
+
+    boot_disk {
+      type = "network-hdd"
+      size = 64
+    }
+
+    scheduling_policy {
+      preemptible = false
     }
   }
 
-  network_interface {
-	    subnet_id = "${yandex_vpc_subnet.internal-a.id}"
-	    nat = true
-	  }
+  scale_policy {
+    fixed_scale {
+      size = 3
+    }
+  }
+
+  allocation_policy {
+    location {
+      zone = "ru-central1-a"
+    }
+
+    location {
+      zone = "ru-central1-b"
+    }
+
+    location {
+      zone = "ru-central1-c"
+    }
+  }
+
+  maintenance_policy {
+    auto_upgrade = false
+    auto_repair  = true
+  }
 }
