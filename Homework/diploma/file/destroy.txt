@@ -1,0 +1,205 @@
+user@user-VirtualBox:~/diploma/cloud-terraform/example-tfc-getting-started$ terraform destroy
+Running apply in Terraform Cloud. Output will stream here. Pressing Ctrl-C
+will cancel the remote apply if it's still pending. If the apply started it
+will stop streaming the logs, but will not stop the apply running remotely.
+
+Preparing the remote apply...
+
+To view this run in a browser, visit:
+https://app.terraform.io/app/example-org-f099c2/stage/runs/run-Qe8ishuuM2sCAKHD
+
+Waiting for the plan to start...
+
+Terraform v1.4.6
+on linux_amd64
+Initializing plugins and modules...
+yandex_vpc_network.internal: Refreshing state... [id=enp4lhgbb72spmestonn]
+yandex_compute_image.image: Refreshing state... [id=fd86h97j4fo9n61l643m]
+yandex_vpc_subnet.internal-b: Refreshing state... [id=e2li2hqfb8icb9r1g5mr]
+yandex_vpc_subnet.internal-a: Refreshing state... [id=e9b1mlc7l54srtqf264e]
+yandex_vpc_subnet.internal-c: Refreshing state... [id=b0c3hu65hkhgbtnchdtb]
+yandex_compute_instance.ntvm: Refreshing state... [id=fhm88067p0pm1hj20dhs]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are
+indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # yandex_compute_image.image will be destroyed
+  - resource "yandex_compute_image" "image" {
+      - created_at    = "2023-06-04T09:50:14Z" -> null
+      - folder_id     = "b1ges2bjhjj3hcfdebdc" -> null
+      - id            = "fd86h97j4fo9n61l643m" -> null
+      - labels        = {} -> null
+      - min_disk_size = 5 -> null
+      - name          = "image" -> null
+      - pooled        = false -> null
+      - product_ids   = [
+          - "f2e6uo8g1rcihevd42lk",
+        ] -> null
+      - size          = 4 -> null
+      - source_family = "ubuntu-2004-lts" -> null
+      - status        = "ready" -> null
+    }
+
+  # yandex_compute_instance.ntvm will be destroyed
+  - resource "yandex_compute_instance" "ntvm" {
+      - allow_stopping_for_update = true -> null
+      - created_at                = "2023-06-04T09:50:23Z" -> null
+      - folder_id                 = "b1ges2bjhjj3hcfdebdc" -> null
+      - fqdn                      = "fhm88067p0pm1hj20dhs.auto.internal" -> null
+      - id                        = "fhm88067p0pm1hj20dhs" -> null
+      - labels                    = {} -> null
+      - metadata                  = {} -> null
+      - name                      = "ntvm" -> null
+      - network_acceleration_type = "standard" -> null
+      - platform_id               = "standard-v1" -> null
+      - status                    = "running" -> null
+      - zone                      = "ru-central1-a" -> null
+
+      - boot_disk {
+          - auto_delete = true -> null
+          - device_name = "fhmbtrnt9hh95i9laec6" -> null
+          - disk_id     = "fhmbtrnt9hh95i9laec6" -> null
+          - mode        = "READ_WRITE" -> null
+
+          - initialize_params {
+              - block_size = 4096 -> null
+              - image_id   = "fd86h97j4fo9n61l643m" -> null
+              - size       = 5 -> null
+              - type       = "network-hdd" -> null
+            }
+        }
+
+      - metadata_options {
+          - aws_v1_http_endpoint = 1 -> null
+          - aws_v1_http_token    = 2 -> null
+          - gce_http_endpoint    = 1 -> null
+          - gce_http_token       = 1 -> null
+        }
+
+      - network_interface {
+          - index              = 0 -> null
+          - ip_address         = "10.0.0.29" -> null
+          - ipv4               = true -> null
+          - ipv6               = false -> null
+          - mac_address        = "d0:0d:84:00:c7:c8" -> null
+          - nat                = true -> null
+          - nat_ip_address     = "158.160.54.148" -> null
+          - nat_ip_version     = "IPV4" -> null
+          - security_group_ids = [] -> null
+          - subnet_id          = "e9b1mlc7l54srtqf264e" -> null
+        }
+
+      - placement_policy {
+          - host_affinity_rules = [] -> null
+        }
+
+      - resources {
+          - core_fraction = 20 -> null
+          - cores         = 2 -> null
+          - gpus          = 0 -> null
+          - memory        = 2 -> null
+        }
+
+      - scheduling_policy {
+          - preemptible = false -> null
+        }
+    }
+
+  # yandex_vpc_network.internal will be destroyed
+  - resource "yandex_vpc_network" "internal" {
+      - created_at = "2023-06-04T09:50:14Z" -> null
+      - folder_id  = "b1ges2bjhjj3hcfdebdc" -> null
+      - id         = "enp4lhgbb72spmestonn" -> null
+      - labels     = {} -> null
+      - name       = "internal" -> null
+      - subnet_ids = [
+          - "b0c3hu65hkhgbtnchdtb",
+          - "e2li2hqfb8icb9r1g5mr",
+          - "e9b1mlc7l54srtqf264e",
+        ] -> null
+    }
+
+  # yandex_vpc_subnet.internal-a will be destroyed
+  - resource "yandex_vpc_subnet" "internal-a" {
+      - created_at     = "2023-06-04T09:50:15Z" -> null
+      - folder_id      = "b1ges2bjhjj3hcfdebdc" -> null
+      - id             = "e9b1mlc7l54srtqf264e" -> null
+      - labels         = {} -> null
+      - name           = "internal-a" -> null
+      - network_id     = "enp4lhgbb72spmestonn" -> null
+      - v4_cidr_blocks = [
+          - "10.0.0.0/24",
+        ] -> null
+      - v6_cidr_blocks = [] -> null
+      - zone           = "ru-central1-a" -> null
+    }
+
+  # yandex_vpc_subnet.internal-b will be destroyed
+  - resource "yandex_vpc_subnet" "internal-b" {
+      - created_at     = "2023-06-04T09:50:15Z" -> null
+      - folder_id      = "b1ges2bjhjj3hcfdebdc" -> null
+      - id             = "e2li2hqfb8icb9r1g5mr" -> null
+      - labels         = {} -> null
+      - name           = "internal-b" -> null
+      - network_id     = "enp4lhgbb72spmestonn" -> null
+      - v4_cidr_blocks = [
+          - "10.1.0.0/24",
+        ] -> null
+      - v6_cidr_blocks = [] -> null
+      - zone           = "ru-central1-b" -> null
+    }
+
+  # yandex_vpc_subnet.internal-c will be destroyed
+  - resource "yandex_vpc_subnet" "internal-c" {
+      - created_at     = "2023-06-04T09:50:16Z" -> null
+      - folder_id      = "b1ges2bjhjj3hcfdebdc" -> null
+      - id             = "b0c3hu65hkhgbtnchdtb" -> null
+      - labels         = {} -> null
+      - name           = "internal-c" -> null
+      - network_id     = "enp4lhgbb72spmestonn" -> null
+      - v4_cidr_blocks = [
+          - "10.2.0.0/24",
+        ] -> null
+      - v6_cidr_blocks = [] -> null
+      - zone           = "ru-central1-c" -> null
+    }
+
+Plan: 0 to add, 0 to change, 6 to destroy.
+
+------------------------------------------------------------------------
+
+Cost Estimation:
+
+Resources: 0 of 0 estimated
+           $0.0/mo +$0.0
+
+------------------------------------------------------------------------
+
+Do you really want to destroy all resources in workspace "stage"?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+yandex_vpc_subnet.internal-c: Destroying... [id=b0c3hu65hkhgbtnchdtb]
+yandex_vpc_subnet.internal-b: Destroying... [id=e2li2hqfb8icb9r1g5mr]
+yandex_compute_instance.ntvm: Destroying... [id=fhm88067p0pm1hj20dhs]
+yandex_vpc_subnet.internal-c: Destruction complete after 3s
+yandex_vpc_subnet.internal-b: Destruction complete after 4s
+yandex_compute_instance.ntvm: Still destroying... [10s elapsed]
+yandex_compute_instance.ntvm: Still destroying... [20s elapsed]
+yandex_compute_instance.ntvm: Destruction complete after 24s
+yandex_vpc_subnet.internal-a: Destroying... [id=e9b1mlc7l54srtqf264e]
+yandex_compute_image.image: Destroying... [id=fd86h97j4fo9n61l643m]
+yandex_vpc_subnet.internal-a: Destruction complete after 3s
+yandex_vpc_network.internal: Destroying... [id=enp4lhgbb72spmestonn]
+yandex_vpc_network.internal: Destruction complete after 0s
+yandex_compute_image.image: Still destroying... [10s elapsed]
+yandex_compute_image.image: Destruction complete after 11s
+
+Apply complete! Resources: 0 added, 0 changed, 6 destroyed.
+
+
