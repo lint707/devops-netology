@@ -34,8 +34,8 @@
 2. Полученная конфигурация инфраструктуры является предварительной, поэтому в ходе дальнейшего выполнения задания возможны изменения.  
 
 
-[main.tf](mf/main.tf)
-[network.tf](mf/network.tf)
-[provider.tf](mf/provider.tf)
-[versions.tf](mf/versions.tf)
-[backend.tf](mf/backend.tf)
+[main.tf](mf/main.tf)  
+[network.tf](mf/network.tf)  
+[provider.tf](mf/provider.tf)  
+[versions.tf](mf/versions.tf)  
+[backend.tf](mf/backend.tf)  
