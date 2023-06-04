@@ -42,18 +42,16 @@
 
 
 ---
-### Создание Kubernetes кластера
+### Создание Kubernetes кластера  
 
-2. Альтернативный вариант: воспользуйтесь сервисом [Yandex Managed Service for Kubernetes](https://cloud.yandex.ru/services/managed-kubernetes)  
+2. Альтернативный вариант: воспользовался сервисом [Yandex Managed Service for Kubernetes](https://cloud.yandex.ru/services/managed-kubernetes)  
   а. С помощью terraform resource для [kubernetes](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/kubernetes_cluster) создать региональный мастер kubernetes с размещением нод в разных 3 подсетях      
-  б. С помощью terraform resource для [kubernetes node group](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/kubernetes_node_group)
-  
-Ожидаемый результат:
+    
+Результат:  
+1. Работоспособный Kubernetes кластер:   
+![cluster](img/cluster.jpg)  
 
-1. Работоспособный Kubernetes кластер:  
-![cluster](img/cluster.jpg)
-
-2. В файле `~/.kube/config` находятся данные для доступа к кластеру:  
+2. В файле `~/.kube/config` находятся данные для доступа к кластеру:   
 ```
 user@user-VirtualBox:~/.kube$ cat config 
 apiVersion: v1
