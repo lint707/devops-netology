@@ -33,14 +33,6 @@
 1. Terraform сконфигурирован и создание инфраструктуры посредством Terraform возможно без дополнительных ручных действий.  
 2. Полученная конфигурация инфраструктуры является предварительной, поэтому в ходе дальнейшего выполнения задания возможны изменения.  
 
-
-[main.tf](mf/main.tf)  
-[network.tf](mf/network.tf)  
-[provider.tf](mf/provider.tf)  
-[versions.tf](mf/versions.tf)  
-[backend.tf](mf/backend.tf)  
-
-
 ---
 ### Создание Kubernetes кластера  
 
@@ -115,6 +107,11 @@ kube-system   yc-disk-csi-node-v2-6ghnv              6/6     Running   0        
 kube-system   yc-disk-csi-node-v2-cn4w2              6/6     Running   0          9m15s
 kube-system   yc-disk-csi-node-v2-jkk69              6/6     Running   0          9m2s
 ```
-
-
 ---
+
+[main.tf](mf/main.tf)  
+[network.tf](mf/network.tf)  
+[provider.tf](mf/provider.tf)  
+[versions.tf](mf/versions.tf)  
+[backend.tf](mf/backend.tf)  
+[service-accounts.tf](mf/service-accounts.tf)  
