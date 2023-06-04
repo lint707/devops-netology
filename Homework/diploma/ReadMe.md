@@ -15,12 +15,12 @@
 
 2. Подготовьте [backend](https://www.terraform.io/docs/language/settings/backends/index.html) для Terraform:  
    а. Рекомендуемый вариант: [Terraform Cloud](https://app.terraform.io/)  
-
 3. Настройте [workspaces](https://www.terraform.io/docs/language/state/workspaces.html)  
    а. Рекомендуемый вариант: создайте два workspace: *stage* и *prod*. В случае выбора этого варианта все последующие шаги должны учитывать факт существования нескольких workspace.  
+![terra_cloud](img/terra_cloud.jpg
 
 4. Создайте VPC с подсетями в разных зонах доступности.
-
+![VPC](img/VPC.jpg
 5. Убедитесь, что теперь вы можете выполнить команды `terraform destroy` и `terraform apply` без дополнительных ручных действий.
 
 6. В случае использования [Terraform Cloud](https://app.terraform.io/) в качестве [backend](https://www.terraform.io/docs/language/settings/backends/index.html) убедитесь, что применение изменений успешно проходит, используя web-интерфейс Terraform cloud.
