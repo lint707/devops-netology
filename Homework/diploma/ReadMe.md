@@ -39,3 +39,84 @@
 [provider.tf](mf/provider.tf)  
 [versions.tf](mf/versions.tf)  
 [backend.tf](mf/backend.tf)  
+
+
+---
+### Создание Kubernetes кластера
+
+2. Альтернативный вариант: воспользуйтесь сервисом [Yandex Managed Service for Kubernetes](https://cloud.yandex.ru/services/managed-kubernetes)  
+  а. С помощью terraform resource для [kubernetes](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/kubernetes_cluster) создать региональный мастер kubernetes с размещением нод в разных 3 подсетях      
+  б. С помощью terraform resource для [kubernetes node group](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/kubernetes_node_group)
+  
+Ожидаемый результат:
+
+1. Работоспособный Kubernetes кластер:  
+![cluster](img/cluster.jpg)
+
+2. В файле `~/.kube/config` находятся данные для доступа к кластеру:  
+```
+user@user-VirtualBox:~/.kube$ cat config 
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: *******==
+    server: https://51.250.67.27
+  name: yc-managed-k8s-cat4nie0akus8hfv58h7
+contexts:
+- context:
+    cluster: yc-managed-k8s-cat4nie0akus8hfv58h7
+    user: yc-managed-k8s-cat4nie0akus8hfv58h7
+  name: yc-kub-diploma
+current-context: yc-kub-diploma
+kind: Config
+preferences: {}
+users:
+- name: yc-managed-k8s-cat431sqh0j8d26eik42
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      args:
+      - k8s
+      - create-token
+      - --profile=terradiploma
+      command: /home/user/yandex-cloud/bin/yc
+      env: null
+      interactiveMode: IfAvailable
+      provideClusterInfo: false
+- name: yc-managed-k8s-cat4nie0akus8hfv58h7
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      args:
+      - k8s
+      - create-token
+      - --profile=terradiploma
+      command: /home/user/yandex-cloud/bin/yc
+      env: null
+      provideClusterInfo: false
+```
+
+3. Команда `kubectl get pods --all-namespaces` отрабатывает без ошибок:  
+```
+kubectl get pods --all-namespaces 
+NAMESPACE     NAME                                   READY   STATUS    RESTARTS   AGE
+kube-system   coredns-66f79ddf7b-66ndm               1/1     Running   0          8m43s
+kube-system   coredns-66f79ddf7b-z7j7r               1/1     Running   0          12m
+kube-system   ip-masq-agent-b7jhg                    1/1     Running   0          9m15s
+kube-system   ip-masq-agent-l8cgc                    1/1     Running   0          9m2s
+kube-system   ip-masq-agent-w7s7l                    1/1     Running   0          9m15s
+kube-system   kube-dns-autoscaler-65956d889d-9rxv8   1/1     Running   0          12m
+kube-system   kube-proxy-62gc9                       1/1     Running   0          9m15s
+kube-system   kube-proxy-6tsrm                       1/1     Running   0          9m2s
+kube-system   kube-proxy-hlqfl                       1/1     Running   0          9m15s
+kube-system   metrics-server-79f848fbc6-qk7jf        2/2     Running   0          8m23s
+kube-system   npd-v0.8.0-k88g7                       1/1     Running   0          9m2s
+kube-system   npd-v0.8.0-n2mrr                       1/1     Running   0          9m15s
+kube-system   npd-v0.8.0-tn4x7                       1/1     Running   0          9m15s
+kube-system   yc-disk-csi-node-v2-6ghnv              6/6     Running   0          9m15s
+kube-system   yc-disk-csi-node-v2-cn4w2              6/6     Running   0          9m15s
+kube-system   yc-disk-csi-node-v2-jkk69              6/6     Running   0          9m2s
+```
+
+
+---
