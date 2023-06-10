@@ -115,3 +115,15 @@ kube-system   yc-disk-csi-node-v2-jkk69              6/6     Running   0        
 [versions.tf](mf/versions.tf)  
 [backend.tf](mf/backend.tf)  
 [service-accounts.tf](mf/service-accounts.tf)  
+
+---
+### Создание тестового приложения
+
+Подготовил тестовое приложение, эмулирующее основное приложение разрабатываемое вашей компанией.
+1. Рекомендуемый вариант:  
+   а. Создал отдельный git репозиторий с простым nginx конфигом, который будет отдавать статические данные.  
+   б. Подготовил Dockerfile для создания образа приложения.  
+
+##### Результат:
+1. [Git репозиторий с тестовым приложением и Dockerfile](https://github.com/lint707/nginx_diploma)
+2. Регистр с собранным docker image в DockerHub: [nginx_diploma](https://hub.docker.com/repository/docker/lint707/nginx_diploma/general)
