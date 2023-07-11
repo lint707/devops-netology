@@ -148,7 +148,7 @@ kube-system   yc-disk-csi-node-v2-jkk69              6/6     Running   0        
 
 2. При любом коммите в репозиторие с тестовым приложением происходит сборка и отправка в регистр Docker образа.  
 Настройл webhook в github:  
-![jk](img/jenkins-03.jpg)  
+![jk](img/jenkins-031.jpg)  
 
 Для проверки выполнил изменеия в репозитории, в index.html:  
 ![jk](img/jenkins-03.jpg)   
