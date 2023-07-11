@@ -1,0 +1,131 @@
+Started by GitHub push by lint707
+Running as SYSTEM
+Building on the built-in node in workspace /var/lib/jenkins/workspace/nginx_test
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential 184c62f7-d13e-4780-ac9d-df6a38b89594
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/nginx_test/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/lint707/nginx_diploma.git # timeout=10
+Fetching upstream changes from https://github.com/lint707/nginx_diploma.git
+ > git --version # timeout=10
+ > git --version # 'git version 1.8.3.1'
+using GIT_SSH to set credentials 
+[INFO] Currently running in a labeled security context
+[INFO] Currently SELinux is 'enforcing' on the host
+ > /usr/bin/chcon --type=ssh_home_t /var/lib/jenkins/workspace/nginx_test@tmp/jenkins-gitclient-ssh5390754746783733970.key
+Verifying host key using known hosts file
+ > git fetch --tags --progress https://github.com/lint707/nginx_diploma.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision bf65044d00a5c5228489ad462a7247bdfbf09364 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f bf65044d00a5c5228489ad462a7247bdfbf09364 # timeout=10
+Commit message: "Update index.html"
+ > git rev-list --no-walk 8a1c953f23759e456bf4d0393b3e42db7de9d150 # timeout=10
+[nginx_test] $ /bin/sh -xe /tmp/jenkins3527554317348430675.sh
++ echo ===test===
+===test===
++ cat index.html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>NGINX-DIPLOMA</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/dark.min.css">
+</head>
+<body>
+
+	<h1 align=center>This is a Demo Page.</h1>
+	<p align=center>This content is being served by an Nginx container.</p>
+	<p align=center>TEST11</p>
+
+</body>
+</html>
++ whoami
+jenkins
++ tag=3.17.28
++ sudo docker build . -t lint707/nginx_diploma:3.17.28
+#1 [internal] load .dockerignore
+#1 transferring context: 2B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from dockerfile
+#2 transferring dockerfile: 297B 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/nginx:alpine3.17
+#3 ...
+
+#4 [auth] library/nginx:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/nginx:alpine3.17
+#3 DONE 1.2s
+
+#5 [1/5] FROM docker.io/library/nginx:alpine3.17@sha256:2d194184b067db3598771b4cf326cfe6ad5051937ba1132b8b7d4b0184e0d0a6
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 559B done
+#6 DONE 0.0s
+
+#7 [3/5] RUN mkdir -p /usr/share/nginx/html/
+#7 CACHED
+
+#8 [2/5] RUN rm -rf /usr/share/nginx/html/*
+#8 CACHED
+
+#9 [4/5] COPY nginx.conf /etc/nginx/nginx.conf
+#9 CACHED
+
+#10 [5/5] COPY index.html /usr/share/nginx/html/
+#10 DONE 0.1s
+
+#11 exporting to image
+#11 exporting layers 0.1s done
+#11 writing image sha256:d9cf989a3c831d93a2ebacbaf224ad5bcb4190cdb79c7d4348cc414c9cd7d61f done
+#11 naming to docker.io/lint707/nginx_diploma:3.17.28 0.0s done
+#11 DONE 0.1s
++ sudo docker push lint707/nginx_diploma:3.17.28
+The push refers to repository [docker.io/lint707/nginx_diploma]
+7a47ae84444c: Preparing
+197e72ec706a: Preparing
+5f6f17580ed6: Preparing
+73f18d54688e: Preparing
+bdea7c663e86: Preparing
+1b22827e15b4: Preparing
+d9f50eaf56fa: Preparing
+2530717ff0bb: Preparing
+e7766bc830a8: Preparing
+cb411529b86f: Preparing
+bc09720137db: Preparing
+3dab9f8bf2d2: Preparing
+1b22827e15b4: Waiting
+d9f50eaf56fa: Waiting
+2530717ff0bb: Waiting
+e7766bc830a8: Waiting
+cb411529b86f: Waiting
+bc09720137db: Waiting
+3dab9f8bf2d2: Waiting
+73f18d54688e: Layer already exists
+bdea7c663e86: Layer already exists
+197e72ec706a: Layer already exists
+5f6f17580ed6: Layer already exists
+1b22827e15b4: Layer already exists
+d9f50eaf56fa: Layer already exists
+2530717ff0bb: Layer already exists
+e7766bc830a8: Layer already exists
+cb411529b86f: Layer already exists
+3dab9f8bf2d2: Layer already exists
+bc09720137db: Layer already exists
+7a47ae84444c: Pushed
+3.17.28: digest: sha256:c848ea346ab6e295c7ba2a561a0e28bd710d6c10e9f901c14a030f3073b5504e size: 2816
++ sudo docker images
+REPOSITORY              TAG       IMAGE ID       CREATED         SIZE
+lint707/nginx_diploma   3.17.28   d9cf989a3c83   8 seconds ago   41.4MB
+lint707/nginx_diploma   3.17.10   d1f98919d814   3 days ago      41.4MB
+lint707/nginx_diploma   3.17.24   d1f98919d814   3 days ago      41.4MB
+lint707/nginx_diploma   3.17.9    7061923e9ca0   6 days ago      41.4MB
++ echo ===test===
+===test===
+Finished: SUCCESS
