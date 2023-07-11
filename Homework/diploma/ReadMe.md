@@ -141,24 +141,23 @@ kube-system   yc-disk-csi-node-v2-jkk69              6/6     Running   0        
 Ожидаемый результат:  
 
 1. Интерфейс ci/cd сервиса доступен по http.  
-Создали новый проэкт:
-![jk](img/jenkins-06.jpg)  
+Создал новый проэкт:  
+![jk](img/jenkins-06.jpg)   
 ![jk](img/jenkins-07.jpg)  
 ![jk](img/jenkins-08.jpg)  
 
-
 2. При любом коммите в репозиторие с тестовым приложением происходит сборка и отправка в регистр Docker образа.  
-Настройл webhook в github:
-![jk](img/jenkins-03.jpg)
-
-Для проверки выполнил изменеия в репозитории, в index.html:
+Настройл webhook в github:  
 ![jk](img/jenkins-03.jpg)  
 
-Создался и успешно отработал Build#28:
+Для проверки выполнил изменеия в репозитории, в index.html:  
+![jk](img/jenkins-03.jpg)   
+
+Создался и успешно отработал Build#28:  
 ![jk](img/jenkins-04.jpg)  
 Вывод в [console output.txt](file/output.txt).  
 
-В Docker-Hub, добавилась новая сборка с новым тегом:
+В Docker-Hub, добавилась новая сборка с новым тегом:  
 ![jk](img/jenkins-05.jpg)  
 
 
