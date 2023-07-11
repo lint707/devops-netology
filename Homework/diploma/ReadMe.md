@@ -127,3 +127,30 @@ kube-system   yc-disk-csi-node-v2-jkk69              6/6     Running   0        
 ##### Результат:
 1. [Git репозиторий с тестовым приложением и Dockerfile](https://github.com/lint707/nginx_diploma)
 2. Регистр с собранным docker image в DockerHub: [nginx_diploma](https://hub.docker.com/repository/docker/lint707/nginx_diploma/general)
+
+---
+### Установка и настройка CI/CD  
+
+Настроил ci/cd систему для автоматической сборки docker image и деплоя приложения при изменении кода.  
+Цель:  
+1. Автоматическая сборка docker образа при коммите в репозиторий с тестовым приложением.  
+`2. Автоматический деплой нового docker образа.`  
+
+Использовал [jenkins](https://www.jenkins.io/).  
+
+Ожидаемый результат:  
+
+1. Интерфейс ci/cd сервиса доступен по http.  
+![jk](img/jenkins-01.jpg)  
+![jk](img/jenkins-02.jpg)  
+![jk](img/jenkins-03.jpg)  
+![jk](img/jenkins-04.jpg)  
+![jk](img/jenkins-05.jpg)  
+![jk](img/jenkins-06.jpg)  
+![jk](img/jenkins-07.jpg)  
+![jk](img/jenkins-08.jpg)  
+3. При любом коммите в репозиторие с тестовым приложением происходит сборка и отправка в регистр Docker образа.  
+[output.txt](file/output.txt)  
+`3. При создании тега (например, v1.0.0) происходит сборка и отправка с соответствующим label в регистр, а также деплой соответствующего Docker образа в кластер Kubernetes.`
+
+---
