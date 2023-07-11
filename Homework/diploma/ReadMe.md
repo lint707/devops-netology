@@ -140,18 +140,26 @@ kube-system   yc-disk-csi-node-v2-jkk69              6/6     Running   0        
 
 Ожидаемый результат:  
 
-1. Интерфейс ci/cd сервиса доступен по http:  
-![jk](img/jenkins-01.jpg)  
-![jk](img/jenkins-02.jpg)  
-![jk](img/jenkins-03.jpg)  
-![jk](img/jenkins-04.jpg)  
-![jk](img/jenkins-05.jpg)  
+1. Интерфейс ci/cd сервиса доступен по http.  
+Создали новый проэкт:
 ![jk](img/jenkins-06.jpg)  
 ![jk](img/jenkins-07.jpg)  
 ![jk](img/jenkins-08.jpg)  
 
+
 2. При любом коммите в репозиторие с тестовым приложением происходит сборка и отправка в регистр Docker образа.  
-[console output.txt](file/output.txt)  
+Настройл webhook в github:
+
+Выполнил изменеия в репозитории, в index.html:
+
+Создался и успешно отработал Build#28:
+![jk](img/jenkins-03.jpg)  
+Вывод в [console output.txt](file/output.txt).  
+
+![jk](img/jenkins-04.jpg)  
+В Docker-Hub, добавилась новая сборка с новым тегом:
+![jk](img/jenkins-05.jpg)  
+
 
 `3. При создании тега (например, v1.0.0) происходит сборка и отправка с соответствующим label в регистр, а также деплой соответствующего Docker образа в кластер Kubernetes.`  
 
