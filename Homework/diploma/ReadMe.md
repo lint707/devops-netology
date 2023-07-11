@@ -149,14 +149,15 @@ kube-system   yc-disk-csi-node-v2-jkk69              6/6     Running   0        
 
 2. При любом коммите в репозиторие с тестовым приложением происходит сборка и отправка в регистр Docker образа.  
 Настройл webhook в github:
+![jk](img/jenkins-03.jpg)
 
-Выполнил изменеия в репозитории, в index.html:
+Для проверки выполнил изменеия в репозитории, в index.html:
+![jk](img/jenkins-03.jpg)  
 
 Создался и успешно отработал Build#28:
-![jk](img/jenkins-03.jpg)  
+![jk](img/jenkins-04.jpg)  
 Вывод в [console output.txt](file/output.txt).  
 
-![jk](img/jenkins-04.jpg)  
 В Docker-Hub, добавилась новая сборка с новым тегом:
 ![jk](img/jenkins-05.jpg)  
 
