@@ -8,7 +8,6 @@
 5. Настроить CI для автоматической сборки и тестирования.  
 6. Настроить CD для автоматического развёртывания приложения.  
 </details>
----
 
 ## Этапы выполнения:
 
@@ -136,20 +135,20 @@ kube-system   yc-disk-csi-node-v2-jkk69              6/6     Running   0        
 Теперь необходимо подготовить конфигурационные файлы для настройки нашего Kubernetes кластера.
 
 Цель:
-1. Задеплоить в кластер [prometheus](https://prometheus.io/), [grafana](https://grafana.com/), [alertmanager](https://github.com/prometheus/alertmanager), [экспортер](https://github.com/prometheus/node_exporter) основных метрик Kubernetes.
-2. Задеплоить тестовое приложение, например, [nginx](https://www.nginx.com/) сервер отдающий статическую страницу.
+1. Задеплоить в кластер [prometheus](https://prometheus.io/), [grafana](https://grafana.com/), [alertmanager](https://github.com/prometheus/alertmanager), [экспортер](https://github.com/prometheus/node_exporter) основных метрик Kubernetes.  
+2. Задеплоить тестовое приложение, например, [nginx](https://www.nginx.com/) сервер отдающий статическую страницу.  
 
-Альтернативный вариант:
-1. Для организации конфигурации можно использовать [helm charts](https://helm.sh/)
-С локального компьютера установил тестовое приложение через `helm install nginx nginx_diploma`.
-Для установки мониторинга предварительно добавил репозиторий `prometheus` и использовал `helm install prom prometheus-community/kube-prometheus-stack --set grafana.service.type=LoadBalancer --set prometheus.service.type=LoadBalancer -n monitoring --create-namespace`
+Альтернативный вариант:  
+1. Для организации конфигурации можно использовать [helm charts](https://helm.sh/)  
+С локального компьютера установил тестовое приложение через `helm install nginx nginx_diploma`.  
+Для установки мониторинга предварительно добавил репозиторий `prometheus` и использовал `helm install prom prometheus-community/kube-prometheus-stack --set grafana.service.type=LoadBalancer --set prometheus.service.type=LoadBalancer -n monitoring --create-namespace`.  
 
-Ожидаемый результат:
+Ожидаемый результат:  
 1. Git репозиторий с конфигурационными файлами для настройки Kubernetes.  
 https://github.com/lint707/diploma/tree/main/helm  
 2. Http доступ к web интерфейсу grafana.  
 3. Дашборды в grafana отображающие состояние Kubernetes кластера.  
-![jk](img/grafana-01.jpg) 
+![jk](img/grafana-01.jpg)  
 ![jk](img/grafana-02.jpg)  
 
 4. Http доступ к тестовому приложению.  
