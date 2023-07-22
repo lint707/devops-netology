@@ -148,8 +148,8 @@ https://github.com/lint707/diploma/tree/main/helm
 
 2. Http доступ к web интерфейсу grafana.
 3. Дашборды в grafana отображающие состояние Kubernetes кластера.
-![jk](img/grafana-02.jpg)  
 ![jk](img/grafana-01.jpg)  
+![jk](img/grafana-02.jpg)  
 
 4. Http доступ к тестовому приложению.
 ![jk](img/nginx_test.jpg)  
@@ -186,15 +186,18 @@ https://github.com/lint707/diploma/tree/main/helm
 В Docker-Hub, добавилась новая сборка с новым тегом:  
 ![jk](img/jenkins-05.jpg)  
 
-
-`3. При создании тега (например, v1.0.0) происходит сборка и отправка с соответствующим label в регистр, а также деплой соответствующего Docker образа в кластер Kubernetes.`  
-
-![jk](img/kubectl-02.jpg)  
-![jk](img/kubectl-01.jpg)  
+3. При создании тега (например, v1.0.0) происходит сборка и отправка с соответствующим label в регистр, а также деплой соответствующего Docker образа в кластер Kubernetes.
+Добавил шаг, для создания деплоя, с новым тэгом:
 ![jk](img/jenkins-09.jpg)  
-![jk](img/deploy-02.jpg)  
+Для проверки выполнил изменеия в репозитории, в index.html:
+- Первоначальное значение:
 ![jk](img/deploy-01.jpg)  
-
-![jk](img/dock_hub.jpg)  
+- После выполнения изменений:
+![jk](img/deploy-02.jpg)  
+Вывод в [console output.txt](file/output2.txt).
 
 ---
+
+![jk](img/dock_hub.jpg)  
+![jk](img/kubectl-02.jpg)  
+![jk](img/kubectl-01.jpg)  
