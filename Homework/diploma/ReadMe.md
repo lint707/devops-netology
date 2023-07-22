@@ -201,3 +201,17 @@ https://github.com/lint707/diploma/tree/main/helm
 ![jk](img/dock_hub.jpg)  
 ![jk](img/kubectl-02.jpg)  
 ![jk](img/kubectl-01.jpg)  
+
+
+## Что необходимо для сдачи задания?
+
+-поправить 1. Репозиторий с конфигурационными файлами Terraform и готовность продемонстрировать создание всех ресурсов с нуля.
++2. Cнимки экрана из Terraform Cloud.
++3. Репозиторий с Dockerfile тестового приложения и ссылка на собранный docker image.
++4. Репозиторий с конфигурацией Kubernetes кластера.
++5. Ссылка на тестовое приложение и веб интерфейс Grafana с данными доступа.
++6. Все репозитории рекомендуется хранить на одном ресурсе (github, gitlab)
+https://github.com/lint707/diploma/tree/main/helm/nginx_diploma - helm/docker/terraform
+https://github.com/lint707?tab=repositories - приложение
+https://github.com/lint707/devops-netology/blob/main/Homework/diploma/ReadMe.md - ReadMe.md
+
