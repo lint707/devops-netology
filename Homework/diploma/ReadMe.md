@@ -163,4 +163,12 @@ kube-system   yc-disk-csi-node-v2-jkk69              6/6     Running   0        
 
 `3. При создании тега (например, v1.0.0) происходит сборка и отправка с соответствующим label в регистр, а также деплой соответствующего Docker образа в кластер Kubernetes.`  
 
+![jk](img/kubectl-02.jpg)  
+![jk](img/kubectl-01.jpg)  
+![jk](img/jenkins-09.jpg)  
+![jk](img/grafana-02.jpg)  
+![jk](img/grafana-01.jpg)  
+![jk](img/deploy-02.jpg)  
+![jk](img/deploy-01.jpg)  
+
 ---
