@@ -1,21 +1,16 @@
  Дипломный практикум в Yandex.Cloud
-
----
-
 <details>
     <summary><b>Цели:</b></summary>
-1. Подготовить облачную инфраструктуру на базе облачного провайдера Яндекс.Облако.
-2. Запустить и сконфигурировать Kubernetes кластер.
-3. Установить и настроить систему мониторинга.
-4. Настроить и автоматизировать сборку тестового приложения с использованием Docker-контейнеров.
-5. Настроить CI для автоматической сборки и тестирования.
-6. Настроить CD для автоматического развёртывания приложения.
+1. Подготовить облачную инфраструктуру на базе облачного провайдера Яндекс.Облако.  
+2. Запустить и сконфигурировать Kubernetes кластер.  
+3. Установить и настроить систему мониторинга.  
+4. Настроить и автоматизировать сборку тестового приложения с использованием Docker-контейнеров.  
+5. Настроить CI для автоматической сборки и тестирования.  
+6. Настроить CD для автоматического развёртывания приложения.  
 </details>
-
 ---
 
 ## Этапы выполнения:
-
 
 ### Создание облачной инфраструктуры
 
@@ -23,8 +18,8 @@
 
 Предварительная подготовка к установке и запуску Kubernetes кластера.
 
-1. Создал сервисный аккаунт `terra`, который будет в дальнейшем использоваться `Terraform` для работы с инфраструктурой с необходимыми и достаточными правами:  
-![serv_akk](img/serv_akk.jpg)  
+1. Создал сервисный аккаунт `netology`, который будет в дальнейшем использоваться `Terraform` для работы с инфраструктурой с необходимыми и достаточными правами:  
+![sa](img/sa-01.jpg)  
 
 2. Подготовил [backend](https://www.terraform.io/docs/language/settings/backends/index.html) спользуя [Terraform Cloud](https://app.terraform.io/).
 3. Настроил [workspaces](https://www.terraform.io/docs/language/state/workspaces.html):  
@@ -50,7 +45,7 @@
 ### Создание Kubernetes кластера  
 
 2. Альтернативный вариант: воспользовался сервисом [Yandex Managed Service for Kubernetes](https://cloud.yandex.ru/services/managed-kubernetes)  
-  а. С помощью terraform resource для [kubernetes](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/kubernetes_cluster) создать региональный мастер kubernetes с размещением нод в разных 3 подсетях      
+  а. С помощью terraform resource для [kubernetes](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/kubernetes_cluster) создал региональный мастер kubernetes с размещением нод в разных 3 подсетях      
     
 Результат:  
 1. Работоспособный Kubernetes кластер:   
@@ -120,14 +115,7 @@ kube-system   yc-disk-csi-node-v2-6ghnv              6/6     Running   0        
 kube-system   yc-disk-csi-node-v2-cn4w2              6/6     Running   0          9m15s
 kube-system   yc-disk-csi-node-v2-jkk69              6/6     Running   0          9m2s
 ```
----
-
-[main.tf](mf/main.tf)  
-[network.tf](mf/network.tf)  
-[provider.tf](mf/provider.tf)  
-[versions.tf](mf/versions.tf)  
-[backend.tf](mf/backend.tf)  
-[service-accounts.tf](mf/service-accounts.tf)  
+[Terraform manifest](https://github.com/lint707/diploma/tree/main/cloud-terraform)  
 
 ---
 ### Создание тестового приложения
@@ -142,14 +130,39 @@ kube-system   yc-disk-csi-node-v2-jkk69              6/6     Running   0        
 2. Регистр с собранным docker image в DockerHub: [nginx_diploma](https://hub.docker.com/repository/docker/lint707/nginx_diploma/general)
 
 ---
+### Подготовка cистемы мониторинга и деплой приложения
+
+Уже должны быть готовы конфигурации для автоматического создания облачной инфраструктуры и поднятия Kubernetes кластера.  
+Теперь необходимо подготовить конфигурационные файлы для настройки нашего Kubernetes кластера.
+
+Цель:
+1. Задеплоить в кластер [prometheus](https://prometheus.io/), [grafana](https://grafana.com/), [alertmanager](https://github.com/prometheus/alertmanager), [экспортер](https://github.com/prometheus/node_exporter) основных метрик Kubernetes.
+2. Задеплоить тестовое приложение, например, [nginx](https://www.nginx.com/) сервер отдающий статическую страницу.
+
+Альтернативный вариант:
+1. Для организации конфигурации можно использовать [helm charts](https://helm.sh/)
+
+Ожидаемый результат:
+1. Git репозиторий с конфигурационными файлами для настройки Kubernetes.
+https://github.com/lint707/diploma/tree/main/helm
+
+2. Http доступ к web интерфейсу grafana.
+3. Дашборды в grafana отображающие состояние Kubernetes кластера.
+![jk](img/grafana-02.jpg)  
+![jk](img/grafana-01.jpg)  
+
+4. Http доступ к тестовому приложению.
+![jk](img/nginx_test.jpg)  
+
+---
 ### Установка и настройка CI/CD  
 
 Настроил ci/cd систему для автоматической сборки docker image и деплоя приложения при изменении кода.  
 Цель:  
 1. Автоматическая сборка docker образа при коммите в репозиторий с тестовым приложением.  
-`2. Автоматический деплой нового docker образа.`  
+2. Автоматический деплой нового docker образа.  
 
-Использовал [jenkins](https://www.jenkins.io/).  
+Для этого использовал [jenkins](https://www.jenkins.io/).  
 
 Ожидаемый результат:  
 
@@ -179,9 +192,9 @@ kube-system   yc-disk-csi-node-v2-jkk69              6/6     Running   0        
 ![jk](img/kubectl-02.jpg)  
 ![jk](img/kubectl-01.jpg)  
 ![jk](img/jenkins-09.jpg)  
-![jk](img/grafana-02.jpg)  
-![jk](img/grafana-01.jpg)  
 ![jk](img/deploy-02.jpg)  
 ![jk](img/deploy-01.jpg)  
+
+![jk](img/dock_hub.jpg)  
 
 ---
