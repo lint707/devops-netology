@@ -200,13 +200,13 @@ https://github.com/lint707/diploma/tree/main/helm
 
 <details>
     <summary><b>Что необходимо для сдачи задания:</b></summary>
-1. Репозиторий с конфигурационными файлами Terraform и готовность продемонстрировать создание всех ресурсов с нуля.  
-2. Cнимки экрана из Terraform Cloud.  
-3. Репозиторий с Dockerfile тестового приложения и ссылка на собранный docker image.  
-4. Репозиторий с конфигурацией Kubernetes кластера.  
-5. Ссылка на тестовое приложение и веб интерфейс Grafana с данными доступа.  
-6. Все репозитории рекомендуется хранить на одном ресурсе (github, gitlab)  
-https://github.com/lint707/diploma/tree/main/helm/nginx_diploma - helm/docker/terraform  
-https://github.com/lint707?tab=repositories - приложение  
-https://github.com/lint707/devops-netology/blob/main/Homework/diploma/ReadMe.md - ReadMe.md  
+1. Репозиторий с конфигурационными файлами Terraform и готовность продемонстрировать создание всех ресурсов с нуля.  </br>
+2. Cнимки экрана из Terraform Cloud.  </br>
+3. Репозиторий с Dockerfile тестового приложения и ссылка на собранный docker image.  </br>
+4. Репозиторий с конфигурацией Kubernetes кластера.  </br>
+5. Ссылка на тестовое приложение и веб интерфейс Grafana с данными доступа.  </br>
+6. Все репозитории рекомендуется хранить на одном ресурсе (github, gitlab)  </br>
+https://github.com/lint707/diploma/tree/main/helm/nginx_diploma - helm/docker/terraform  </br>
+https://github.com/lint707?tab=repositories - приложение  </br>
+https://github.com/lint707/devops-netology/blob/main/Homework/diploma/ReadMe.md - ReadMe.md  </br>
 </details>  
