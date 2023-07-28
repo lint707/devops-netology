@@ -210,3 +210,20 @@ https://github.com/lint707/diploma/tree/main/helm/nginx_diploma - helm/docker/te
 https://github.com/lint707?tab=repositories - приложение  </br>
 https://github.com/lint707/devops-netology/blob/main/Homework/diploma/ReadMe.md - ReadMe.md  </br>
 </details>  
+
+---
+
+#### Исправления:
+1. Добавил в `.gitignore ` - terraform.tfstate terraform.tfstate.backup .terraform
+2. Изменил `release_channel = “RAPID”` на `STABLE`
+3. Создал [Jenkinsfile](https://github.com/lint707/nginx_diploma/blob/main/Jenkinsfile) и проверил его работу, чтобы аналогично работало как и через `web-ui`:
+![jk](img/jenkins-12.jpg)
+![jk](img/jenkins-11.jpg)
+[output](file/output4.txt)
+
+
+
+
+
+
+
