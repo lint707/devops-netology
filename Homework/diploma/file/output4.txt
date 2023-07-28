@@ -1,0 +1,163 @@
+Started by user admin
+Obtained Jenkinsfile from git https://github.com/lint707/nginx_diploma.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/test2
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential 184c62f7-d13e-4780-ac9d-df6a38b89594
+Cloning the remote Git repository
+Cloning repository https://github.com/lint707/nginx_diploma.git
+ > git init /var/lib/jenkins/workspace/test2 # timeout=10
+Fetching upstream changes from https://github.com/lint707/nginx_diploma.git
+ > git --version # timeout=10
+ > git --version # 'git version 1.8.3.1'
+using GIT_SSH to set credentials 
+[INFO] Currently running in a labeled security context
+[INFO] Currently SELinux is 'enforcing' on the host
+ > /usr/bin/chcon --type=ssh_home_t /var/lib/jenkins/workspace/test2@tmp/jenkins-gitclient-ssh10258981300587870738.key
+Verifying host key using known hosts file
+ > git fetch --tags --progress https://github.com/lint707/nginx_diploma.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/lint707/nginx_diploma.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 9dc2bc3391db25fc00173c22f1e592be566bfa7d (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 9dc2bc3391db25fc00173c22f1e592be566bfa7d # timeout=10
+Commit message: "Update Jenkinsfile"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (git)
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential 184c62f7-d13e-4780-ac9d-df6a38b89594
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/test2/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/lint707/nginx_diploma.git # timeout=10
+Fetching upstream changes from https://github.com/lint707/nginx_diploma.git
+ > git --version # timeout=10
+ > git --version # 'git version 1.8.3.1'
+using GIT_SSH to set credentials 
+[INFO] Currently running in a labeled security context
+[INFO] Currently SELinux is 'enforcing' on the host
+ > /usr/bin/chcon --type=ssh_home_t /var/lib/jenkins/workspace/test2@tmp/jenkins-gitclient-ssh8129162305228576358.key
+Verifying host key using known hosts file
+ > git fetch --tags --progress https://github.com/lint707/nginx_diploma.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 9dc2bc3391db25fc00173c22f1e592be566bfa7d (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 9dc2bc3391db25fc00173c22f1e592be566bfa7d # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b main 9dc2bc3391db25fc00173c22f1e592be566bfa7d # timeout=10
+Commit message: "Update Jenkinsfile"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (docker1)
+[Pipeline] sh
++ sudo docker build . -t lint707/nginx_diploma:3.19.2
+#1 [internal] load build definition from dockerfile
+#1 transferring dockerfile: 297B done
+#1 DONE 0.0s
+
+#2 [internal] load .dockerignore
+#2 transferring context: 2B done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/nginx:alpine3.17
+#3 DONE 0.2s
+
+#4 [1/5] FROM docker.io/library/nginx:alpine3.17@sha256:2d194184b067db3598771b4cf326cfe6ad5051937ba1132b8b7d4b0184e0d0a6
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 956B done
+#5 DONE 0.1s
+
+#6 [3/5] RUN mkdir -p /usr/share/nginx/html/
+#6 CACHED
+
+#7 [4/5] COPY nginx.conf /etc/nginx/nginx.conf
+#7 CACHED
+
+#8 [2/5] RUN rm -rf /usr/share/nginx/html/*
+#8 CACHED
+
+#9 [5/5] COPY index.html /usr/share/nginx/html/
+#9 CACHED
+
+#10 exporting to image
+#10 exporting layers done
+#10 writing image sha256:059f320cba550dd5ace309bdca94665a87c9b6318e366db703d32c91b0af1504 done
+#10 naming to docker.io/lint707/nginx_diploma:3.19.2 0.0s done
+#10 DONE 0.0s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (docke2)
+[Pipeline] sh
++ sudo docker push lint707/nginx_diploma:3.19.2
+The push refers to repository [docker.io/lint707/nginx_diploma]
+c51f000086d8: Preparing
+197e72ec706a: Preparing
+5f6f17580ed6: Preparing
+73f18d54688e: Preparing
+bdea7c663e86: Preparing
+1b22827e15b4: Preparing
+d9f50eaf56fa: Preparing
+2530717ff0bb: Preparing
+e7766bc830a8: Preparing
+cb411529b86f: Preparing
+bc09720137db: Preparing
+3dab9f8bf2d2: Preparing
+d9f50eaf56fa: Waiting
+2530717ff0bb: Waiting
+e7766bc830a8: Waiting
+cb411529b86f: Waiting
+bc09720137db: Waiting
+3dab9f8bf2d2: Waiting
+1b22827e15b4: Waiting
+197e72ec706a: Layer already exists
+5f6f17580ed6: Layer already exists
+c51f000086d8: Layer already exists
+73f18d54688e: Layer already exists
+bdea7c663e86: Layer already exists
+1b22827e15b4: Layer already exists
+e7766bc830a8: Layer already exists
+d9f50eaf56fa: Layer already exists
+2530717ff0bb: Layer already exists
+cb411529b86f: Layer already exists
+bc09720137db: Layer already exists
+3dab9f8bf2d2: Layer already exists
+3.19.2: digest: sha256:bbb955913321109d1dddf4b5661ae5b89cafb4871972baba15ad32fc8ae98982 size: 2816
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (push1)
+[Pipeline] sh
++ helm upgrade nginx /home/jenkins/diploma/helm/nginx_diploma --set image=lint707/nginx_diploma:3.19.2
+Release "nginx" has been upgraded. Happy Helming!
+NAME: nginx
+LAST DEPLOYED: Fri Jul 28 10:36:18 2023
+NAMESPACE: default
+STATUS: deployed
+REVISION: 6
+TEST SUITE: None
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
